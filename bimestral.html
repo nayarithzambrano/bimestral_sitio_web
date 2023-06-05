@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RompeCabezas</title>
+</head>
+<body>
+    <script>
+    
+   //VARIABLES
+    
+    var imagen;
+    var ancho =150;
+    var inicioX = 100; 
+    var inicioY = 25; 
+    var x= 0; 
+    var y = 0; 
+    var renglones = 3;
+    var columnas = 4; 
+    var fichas_array = new Array(); 
+    var numFichas=renglones * columnas;
+    var banderaBarajea = false; 
+    
+    "OBJETO"
+    
+    function Ficha(ii, x, y, w, xx, yy, i, j, bandera){ 
+        this.i= ii; 
+            this.x = x; 
+            this.y = y;
+            this.w = w;
+            this.xx = xx; 
+            this.yy = yy; 
+            this.ren = i; 
+            this.col = j;
+            this.bandera = bandera;
+            this.dibuja = dibujaFigura; 
+          }
+          function dibujaFicha(){
+            ctx.strokeStyle = "black";  
+            if(this.bandera){ 
+            ctx.fillStyle = "white";
+            ctx.fillRect(this.xx,this.yy,this.w,this.w);
+            } else {
+                    ctx.drawImage( 
+                    imagen,this.x,this.y,
+                    this.w,this.w,this.xx, 
+                    this.yy,this.w,this.w); 
+         } 
+         ctx.strokeRect(this.xx,this.yy,this.w,this.w);
+    }
+    
+    function creaFichas(){ 
+        imagen = new Image();
+        imagen.src = "img/fondos/fondo5.jpg";
+        imagen.onload = function(){ 
+            var bandera = false; 
+            var ii = 0; 
+            for(var i=0; i<renglones; i++){
+                for(var j=0; j<columnas; j++){
+                     //Coordenadas de las fichas 
+                     x= inicioX+ancho*j;
+                     y= inicioY+ancho*i; 
+                     //Dejaremos en blanco la última ficha 
+                     bandera = (ii==numeroFichas-1);
+                     //Creamos el arreglo con los objetos de las fichas 
+                     fichas_array.push(
+                     new Ficha(ii,x,y,
+                     ancho,x,y,i,j, bandera)); 
+                     ii++; 
+                    }
+                }
+            }
+            tablero();
+        }
+        function tablero(){ 
+            for(var i=0; i<numFichas; i++){
+            fichas_array[i].dibuja(); 
+            }
+        }
+     
+        
+        
+    
+
+
+           //INICIO 
+           window.onload = function(){
+            canvas = document.getElementById("miCanvas"); 
+            if(canvas && canvas.getContext){ 
+                ctx = canvas.getContext("2d");
+                if(ctx){
+                    creaFichas();
+                 } else {
+                    alert("Error al crear tu contexto"); 
+                 }
+            }
+        }
+
+
+
+        
+    
+
+ </script>
+</body>
+</html>
