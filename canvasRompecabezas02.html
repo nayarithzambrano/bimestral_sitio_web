@@ -40,21 +40,20 @@
           function dibujaFicha(){
             ctx.strokeStyle = "black";  
             if(this.bandera){ 
-            ctx.fillStyle = "white";
-            ctx.fillRect(this.xx,this.yy,this.w,this.w);
+                ctx.fillRect(this.xx,this.yy,this.w,this.w);
+                ctx.fillStyle = "white";
             } else {
                     ctx.drawImage( 
                     imagen,this.x,this.y,
                     this.w,this.w,this.xx, 
                     this.yy,this.w,this.w); 
          } 
-         ctx.strokeRect(this.xx,this.yy,this.w,this.w);
+         
     }
-    
     function creaFichas(){ 
         imagen = new Image();
-        imagen.src = "img/fondos/fondo5.jpg";
-        imagen.onload = function(){ 
+         imagen.src = "img/fondos/fondo5.jpg";
+         imagen.onload = function(){ 
             var bandera = false; 
             var ii = 0; 
             for(var i=0; i<renglones; i++){
@@ -67,41 +66,35 @@
                      //Creamos el arreglo con los objetos de las fichas 
                      fichas_array.push(
                      new Ficha(ii,x,y,
-                     ancho,x,y,i,j, bandera)); 
+                     ancho,x,y,i,j, bandera )); 
                      ii++; 
                     }
                 }
-            }
-            tablero();
+                tablero(); 
+            }  
         }
-        function tablero(){ 
-            for(var i=0; i<numFichas; i++){
-            fichas_array[i].dibuja(); 
-            }
-        }
-     
-        
-        
-    
 
-
-           //INICIO 
-           window.onload = function(){
-            canvas = document.getElementById("miCanvas"); 
-            if(canvas && canvas.getContext){ 
+        
+    //INICIO 
+     window.onload = function(){
+          canvas = document.getElementById("miCanvas"); 
+          if(canvas && canvas.getContext){ 
                 ctx = canvas.getContext("2d");
                 if(ctx){
-                    creaFichas();
-                 } else {
+                      creaFichas();
+                } else {
                     alert("Error al crear tu contexto"); 
-                 }
+                 } 
             }
         }
 
+        function tablero(){ 
+            for(var i=0; i<numFichas; i++)
+            { fichas_array[i].dibuja(); 
+        }
+           
+    } 
 
-
-        
-    
 
  </script>
 </body>
